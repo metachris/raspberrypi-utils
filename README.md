@@ -2,12 +2,14 @@ Python tools to simplify working with the Raspberry Pi and it's GPIO port. All s
 this repository is released under the MIT license.
 
 
-**[RPIO](https://github.com/metachris/raspberrypi-utils/tree/master/RPIO)**
+**[RPIO](https://github.com/metachris/RPIO)**
 
 Extension of [RPi.GPIO](http://pypi.python.org/pypi/RPi.GPIO) which can handle interrupts.
-Works with Python 2.x and 3.x. The easiest way to install RPIO is via pip:
+Works with Python 2.x and 3.x. The easiest way to install RPIO is via pip or easy_install:
 
-    sudo pip install RPIO
+    sudo easy_install -U RPIO
+
+This project has a new home: https://github.com/metachris/RPIO
 
 
 **gpiodaemon.py**
