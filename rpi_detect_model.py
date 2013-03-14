@@ -22,17 +22,17 @@ URL: https://github.com/metachris/raspberrypi-utils
 import re
 
 model_data = {
-    '0002': ('B', '1.0', 256, '?', ''),
-    '0003': ('B', '1.0', 256, '?', 'Fuses mod and D14 removed'),
-    '0004': ('B', '2.0', 256, 'Sony', ''),
-    '0005': ('B', '2.0', 256, 'Qisda', ''),
-    '0006': ('B', '2.0', 256, 'Egoman', ''),
-    '0007': ('A', '2.0', 256, 'Egoman', ''),
-    '0008': ('A', '2.0', 256, 'Sony', ''),
-    '0009': ('A', '2.0', 256, 'Qisda', ''),
-    '000d': ('B', '2.0', 512, 'Egoman', ''),
-    '000e': ('B', '2.0', 512, 'Sony', ''),
-    '000f': ('B', '2.0', 512, 'Qisda', '')
+    '2': ('B', '1.0', 256, '?', ''),
+    '3': ('B', '1.0', 256, '?', 'Fuses mod and D14 removed'),
+    '4': ('B', '2.0', 256, 'Sony', ''),
+    '5': ('B', '2.0', 256, 'Qisda', ''),
+    '6': ('B', '2.0', 256, 'Egoman', ''),
+    '7': ('A', '2.0', 256, 'Egoman', ''),
+    '8': ('A', '2.0', 256, 'Sony', ''),
+    '9': ('A', '2.0', 256, 'Qisda', ''),
+    'd': ('B', '2.0', 512, 'Egoman', ''),
+    'e': ('B', '2.0', 512, 'Sony', ''),
+    'f': ('B', '2.0', 512, 'Qisda', '')
 }
 
 
@@ -53,12 +53,12 @@ class ModelInfo(object):
         if not rev_hex:
             with open("/proc/cpuinfo") as f:
                 cpuinfo = f.read()
-            rev_hex = re.search(r"(?<=\nRevision)[ |:|\t]*\w+", cpuinfo) \
-                    .group().strip(" :\t")
+            rev_hex = re.search(r"(?<=\nRevision)[ |:|\t]*(\w+)", cpuinfo) \
+                    .group(1)
 
-        self.revision_hex = rev_hex
+        self.revision_hex = rev_hex[-4:] if rev_hex[:4] == "1000" else rev_hex
         self.model, self.revision, self.ram_mb, self.maker, self.info = \
-                model_data[rev_hex]
+                model_data[rev_hex.strip("0")]
 
     def __repr__(self):
         s = "%s: Model %s, Revision %s, RAM: %s MB, Maker: %s%s" % ( \
